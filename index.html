@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Predio invadido por lotificadores – Ampliación San Jerónimo | Vivir Tecámac</title>
+    <meta name="description" content="Mapa del predio invadido por lotificadores en Ampliación San Jerónimo, con navegación directa en Google Maps. Vivir Tecámac S.A. de C.V.">
+    <meta name="robots" content="noindex, nofollow">
+    <meta property="og:title" content="Predio invadido por lotificadores – Ampliación San Jerónimo">
+    <meta property="og:description" content="Mapa y navegación GPS al predio. Vivir Tecámac S.A. de C.V.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="assets/logo-vivir-tecamac.png">
+    <link rel="apple-touch-icon" href="assets/logo-vivir-tecamac.png">
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --dorado: #B8860B;       /* Dorado para textos */
+            --dorado-claro: #D4AF37; /* Dorado para bordes y detalles */
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #202124;
+        }
+        body {
+            font-family: 'Roboto', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            height: 100vh;
+            height: 100dvh;
+            overflow: hidden;
+        }
+
+        /* Panel Lateral Izquierdo con imagen de fondo */
+        .sidebar {
+            width: 380px;
+            background-color: var(--card-bg);
+            background-image: url('assets/fondo-panel.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            box-shadow: 4px 0 15px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+        .sidebar-header {
+            padding: 8px 12px 8px 12px;
+            background-color: rgba(255, 255, 255, 0.75);
+            border-bottom: 2px solid var(--dorado-claro);
+            text-align: center;
+        }
+        .logo {
+            width: 120px;
+            height: auto;
+            display: block;
+            flex-shrink: 0;
+        }
+        .marca {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 4px;
+        }
+        .marca-texto { text-align: center; flex-grow: 1; }
+        .sidebar-header .empresa-linea1 {
+            font-family: Verdana, Geneva, sans-serif;
+            font-weight: normal;
+            color: #000000;
+            font-size: 0.68rem;
+            margin: 0;
+        }
+        .sidebar-header .empresa-linea2 {
+            font-family: Verdana, Geneva, sans-serif;
+            font-weight: bold;
+            color: var(--dorado);
+            font-size: 0.82rem;
+            margin: 1px 0 0 0;
+        }
+        .sidebar-header h1 {
+            margin: 3px 0 2px 0;
+            font-size: 0.88rem;
+            font-weight: bold;
+            color: #0b57d0; /* Azul */
+        }
+        .sidebar-header p {
+            margin: 0;
+            font-size: 0.66rem;
+            font-weight: bold;
+            color: var(--dorado);
+        }
+
+        .sidebar-header h1,
+        .sidebar-header > p {
+            text-align: center;
+            width: 100%;
+        }
+
+        .lista-botones {
+            padding: 8px 10px calc(40px + env(safe-area-inset-bottom)) 10px;
+            overflow-y: auto;
+            flex-grow: 1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-auto-rows: min-content;
+            align-content: start;
+            gap: 6px;
+        }
+        .btn-ruta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 6px 8px;
+            background-color: rgba(255, 255, 255, 0.88);
+            color: #000000;
+            font-family: Verdana, Geneva, sans-serif;
+            text-decoration: none;
+            border-radius: 10px;
+            font-size: 0.72rem;
+            font-weight: bold;
+            border: 1px solid #e0e0e0;
+            border-left: 4px solid var(--dorado-claro);
+            transition: all 0.2s ease;
+        }
+        .btn-ruta:active {
+            background-color: var(--dorado);
+            color: white;
+            border-color: var(--dorado);
+        }
+        .sub-lbl {
+            font-size: 0.62rem;
+            color: #000000;
+            font-family: Verdana, Geneva, sans-serif;
+            font-weight: bold;
+            display: block;
+            margin-top: 0;
+        }
+        .btn-ruta:active .sub-lbl { color: white; }
+
+        /* Contenedor del Mapa (Derecho) - sin cambios */
+        .map-container {
+            flex-grow: 1;
+            height: 100%;
+            position: relative;
+            background-color: #e5e3df;
+        }
+        .map-container iframe {
+            width: 100% !important;
+            height: 100% !important;
+            border: none;
+        }
+
+        /* Vista para celulares (Disposición vertical) */
+        @media (max-width: 768px) {
+            body { flex-direction: column-reverse; }
+            .sidebar { width: 100%; height: 45vh; }
+            .map-container { height: 55vh; }
+            .logo { width: 80px; }
+            .marca { margin-bottom: 2px; }
+            .sidebar-header { padding: 5px 10px; }
+            .empresa-linea2 { margin-bottom: 6px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTROL DE BOTONES (Parte inferior en móvil, lateral en PC/Tablets) -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="marca">
+                <img class="logo" src="assets/logo-vivir-tecamac.png" alt="Logo VIVIR TECÁMAC" width="120" height="72">
+                <div class="marca-texto">
+                    <p class="empresa-linea1">Empresa de Participación Mayoritaria</p>
+                    <p class="empresa-linea2">VIVIR TECÁMAC S.A. de C.V.</p>
+                    <h1>🚚 PREDIO INVADIDO POR LOTIFICADORES (iOS)</h1>
+                    <p>Toca un destino para iniciar la navegación directa en Google Maps.</p>
+                </div>
+            </div>
+        </div>
+        <div class="lista-botones">
+            <a class="btn-ruta" href="comgooglemaps://?daddr=19.733839,-98.936363&directionsmode=driving">
+                <div><span>AMPLIACION SAN JERONIMO</span><span class="sub-lbl">Iniciar navegación GPS</span></div><span>➔</span>
+            </a>
+ 
+        </div>
+    </div>
+
+    <!-- MAPA EN VIVO "OPERATIVO CRECIMIENTOS ESTRUCTURALES" -->
+    <div class="map-container">
+	<iframe title="Mapa operativo de crecimientos estructurales" src="https://www.google.com/maps/d/u/0/embed?mid=1mjWVqdq_uGmqGkqbim4CtkbZ8qFK2Cg&ehbc=2E312F" loading="lazy" allowfullscreen referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+
+</body>
+</html>
